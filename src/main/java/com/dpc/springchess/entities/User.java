@@ -29,10 +29,6 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(nullable = false)
-	@CreationTimestamp
-	private Timestamp joined;
-	
 	@OneToMany(mappedBy="creator")
 	private List<Board> games;
 	
@@ -46,7 +42,4 @@ public class User {
 	@Embedded
 	private Credentials credentials;
 	
-	public User(Timestamp joined) {
-		this.joined = joined;
-	}
 }
