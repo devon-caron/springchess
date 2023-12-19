@@ -1,5 +1,13 @@
 package com.dpc.springchess.mappers;
 
-public class UserMapper {
+import org.mapstruct.Mapper;
+
+import com.dpc.springchess.dtos.UserResponseDto;
+import com.dpc.springchess.entities.User;
+
+@Mapper(componentModel="spring")
+public interface UserMapper {
+
+	UserResponseDto dtoToEntity(User myUser);
 
 }
