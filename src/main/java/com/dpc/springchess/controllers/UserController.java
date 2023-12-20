@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dpc.springchess.dtos.CredentialsDto;
+import com.dpc.springchess.dtos.UserRequestDto;
 import com.dpc.springchess.dtos.UserResponseDto;
 import com.dpc.springchess.services.UserService;
 
@@ -23,8 +24,8 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping
-	public UserResponseDto createUser(@RequestBody CredentialsDto credentialsDto) {
-		return userService.createUser(credentialsDto);
+	public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto) {
+		return userService.createUser(userRequestDto);
 	}
 	
 	@GetMapping("/@{username}")

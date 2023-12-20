@@ -42,4 +42,6 @@ public class User {
 	@Embedded
 	private Credentials credentials;
 	
+	@Embedded
+	private Profile profile;
 }

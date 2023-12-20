@@ -1,7 +1,7 @@
 package com.dpc.springchess.dtos;
 
 
-import com.dpc.springchess.entities.Credentials;
+import com.dpc.springchess.entities.Profile;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,5 +11,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResponseDto {
-	private Long id;
+	private Profile profile;
 }

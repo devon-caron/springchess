@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.dpc.springchess.dtos.CredentialsDto;
+import com.dpc.springchess.dtos.ProfileDto;
+import com.dpc.springchess.dtos.UserRequestDto;
 import com.dpc.springchess.dtos.UserResponseDto;
 import com.dpc.springchess.entities.Credentials;
+import com.dpc.springchess.entities.Profile;
 import com.dpc.springchess.entities.User;
 import com.dpc.springchess.mappers.UserMapper;
 import com.dpc.springchess.repositories.UserRepository;
@@ -36,25 +39,27 @@ public class UserServiceImpl implements UserService {
 		return userMapper.entityToDto(userRepository.saveAndFlush(myUser));
 	}
 
+	/**
+	 *
+	 */
 	@Override
-	public UserResponseDto createUser(CredentialsDto credentialsDto) {
-		System.out.println("here");
+	public UserResponseDto createUser(UserRequestDto userRequestDto) {
+		CredentialsDto credentialsDto = userRequestDto.getCredentialsDto();
+		ProfileDto profileDto = userRequestDto.getProfileDto();
+		
 		User myUser = new User();
-		User test = new User();
 		Credentials myCreds = new Credentials();
-		System.out.println("here");
+		Profile myProfile = new Profile();
 		
 		myCreds.setUsername(credentialsDto.getUsername());
 		myCreds.setPassword(credentialsDto.getPassword());
+		myProfile.setName(profileDto.getName());
+		myProfile.setTitle(profileDto.getTitle());
+		myProfile.setRating(profileDto.getRating());
 		
 		
 		myUser.setCredentials(myCreds);
-		System.out.println(myUser.getCredentials().getUsername());
-
-		System.out.println("here");
-		test = userRepository.saveAndFlush(myUser);
-		
-		System.out.println(test.getId());
+		myUser.setProfile(myProfile);
 		
 		return userMapper.entityToDto(userRepository.saveAndFlush(myUser));
 	}
