@@ -24,7 +24,7 @@ public class Piece {
 	
 	public static Piece pieceBuilder(char pieceChar) {
 		Piece myPiece = new Piece();
-		PieceType myType;
+		PieceType myType = PieceType.EMPTY;
 		int color;
 		char myPieceChar = pieceChar;
 		
@@ -35,27 +35,58 @@ public class Piece {
 		} else {
 			color = WHITE;
 		}
-		
-		switch(myPieceChar) {
-		case 'K': 
+		System.out.println("testing " + myPieceChar);
+		if (myPieceChar == 'K')
 			myType = PieceType.KING;
-		case 'Q':
+		else if (myPieceChar == 'Q') 
 			myType = PieceType.QUEEN;
-		case 'R':
+		else if (myPieceChar == 'R') 
 			myType = PieceType.ROOK;
-		case 'B':
+		else if (myPieceChar == 'B')
 			myType = PieceType.BISHOP;
-		case 'N':
+		else if (myPieceChar == 'N') 
 			myType = PieceType.KNIGHT;
-		case 'P':
+		else if (myPieceChar == 'P') 
 			myType = PieceType.PAWN;
-		default:
+		else 
 			myType = PieceType.EMPTY;
-		}
+		
 		
 		myPiece.setColor(color);
 		myPiece.setType(myType);
 		
+		System.out.println("TYPE AT SET: " + myType);
+		
 		return myPiece;
+	}
+	
+	@Override
+	public String toString() {
+		String toReturn = "";
+		
+		if (color == WHITE) {
+			toReturn += "w";
+		} else {
+			toReturn += "b";
+		}
+		
+		switch(type) {
+		case KING:
+			return toReturn + 'k';
+		case QUEEN:
+			return toReturn + 'q';
+		case ROOK:
+			return toReturn + 'r';
+		case BISHOP:
+			return toReturn + 'b';
+		case KNIGHT:
+			return toReturn + 'n';
+		case PAWN:
+			return toReturn + 'p';
+		default:
+			System.out.println("TYPE : " + type);
+			return "ERROR";
+					
+		}
 	}
 }

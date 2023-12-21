@@ -208,7 +208,7 @@ public class UserServiceImpl implements UserService {
 		
 		List<Board> games = myUser.getGames();
 		
-		return boardMapper.entitiesToDtos(games);
+		return boardMapper.entitiesToDtos(myUser.getGames());
 	}
 
 
