@@ -122,6 +122,10 @@ public class BoardInstance {
 		
 	}
 
+	public List<String> getValidMoves() {
+		return getValidMoves((isWhitesTurn ? Piece.WHITE : Piece.BLACK));
+	}
+	
 	public List<String> getValidMoves(int color) {
 		List<String> moveList = new ArrayList<>();
 		int myColor = color;
@@ -588,7 +592,7 @@ public class BoardInstance {
 	                                String toPush = genMoveStr(PieceType.KING, rank + i, file + j, false);
 	                                moveList.add(currPosStr + toPush);
 	                            }
-	                            else if (!(i == 0 && j == 0) && checkIfValidSquare(rank + i, file + j) && position[rank + i][file + j].getColor() == otherColor) {
+	                            else if (!(i == 0 && j == 0) && checkIfValidSquare(rank + i, file + j) && !(position[rank+i][file-j] == null) && position[rank + i][file + j].getColor() == otherColor) {
 	                                String toPush = genMoveStr(PieceType.KING, rank + i, file + j, true);
 	                                moveList.add(currPosStr + toPush);
 	                            }
@@ -604,7 +608,17 @@ public class BoardInstance {
 	}
 
 	public int getKingPos(int color) {
-		return 0;
+		for (int i = 0; i < 64; i++) {
+			if (position[i / 8][i % 8] == null) {
+				// Do nothing
+			} else {
+				if (position[i / 8][i % 8].getType() == PieceType.KING && position[i / 8][i % 8].getColor() == color) {
+					return i;
+				}
+			}
+		}
+		
+		return -1;
 	}
 
 	public boolean isInCheck(int myRank, int myFile, int color) {
@@ -617,18 +631,18 @@ public class BoardInstance {
 	    //===============================CHECKS IF KING IS IN CHECK BY OPPOSING PAWN=====================================================================================
 	    //===============================================================================================================================================================
 	    if (myColor == Piece.WHITE) {
-	        if (checkIfValidSquare(rank + 1, file - 1) && position[rank + 1][file - 1].getColor() == otherColor && position[rank + 1][file - 1].getType() == PieceType.PAWN) {
+	        if (checkIfValidSquare(rank + 1, file - 1) && !(position[rank+1][file-1] == null) && position[rank + 1][file - 1].getColor() == otherColor && position[rank + 1][file - 1].getType() == PieceType.PAWN) {
 	            return true;
 	        }
-	        if (checkIfValidSquare(rank + 1, file + 1) && position[rank + 1][file + 1].getColor() == otherColor && position[rank + 1][file + 1].getType() == PieceType.PAWN) {
+	        if (checkIfValidSquare(rank + 1, file + 1) && !(position[rank+1][file+1] == null) && position[rank + 1][file + 1].getColor() == otherColor && position[rank + 1][file + 1].getType() == PieceType.PAWN) {
 	            return true;
 	        }
 	    }
 	    else {
-	        if (checkIfValidSquare(rank - 1, file - 1) && position[rank - 1][file - 1].getColor() == otherColor && position[rank - 1][file - 1].getType() == PieceType.PAWN) {
+	        if (checkIfValidSquare(rank - 1, file - 1) && !(position[rank-1][file-1] == null) && position[rank - 1][file - 1].getColor() == otherColor && position[rank - 1][file - 1].getType() == PieceType.PAWN) {
 	            return true;
 	        }
-	        if (checkIfValidSquare(rank - 1, file + 1) && position[rank - 1][file + 1].getColor() == otherColor && position[rank - 1][file + 1].getType() == PieceType.PAWN) {
+	        if (checkIfValidSquare(rank - 1, file + 1) && !(position[rank-1][file+1] == null) && position[rank - 1][file + 1].getColor() == otherColor && position[rank - 1][file + 1].getType() == PieceType.PAWN) {
 	            return true;
 	        }
 	    }
@@ -988,5 +1002,6 @@ public class BoardInstance {
 		}
 		
 	}
+
 	
 }
